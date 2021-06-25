@@ -1,9 +1,6 @@
 package com.angrydwarfs.Dwarfs_Framework.models;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -13,8 +10,10 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name="users")
+@NoArgsConstructor
 public final class User extends AbstractUser {
 
+    @Column(name="ROLE_BD", nullable = false)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles_bd",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -27,6 +26,9 @@ public final class User extends AbstractUser {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleApp> roleApp = new HashSet<>();
 
+    public User (String username, String userEmail, String password) {
+        super(username, userEmail, password);
+    }
 
 
 }

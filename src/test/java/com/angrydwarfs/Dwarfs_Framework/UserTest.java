@@ -49,7 +49,6 @@ class UserTest {
 	@Test
 	@DisplayName("Проверяет успешную подгрузку контроллеров из контекста.")
 	public void loadControllers() {
-		assertThat(userRepository).isNotNull();
 		assertThat(userController).isNotNull();
 	}
 

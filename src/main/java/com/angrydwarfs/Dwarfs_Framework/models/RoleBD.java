@@ -1,9 +1,6 @@
 package com.angrydwarfs.Dwarfs_Framework.models;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,10 +9,12 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString(of = {"roleName"})
+@NoArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 public class RoleBD extends AbstractRole {
 
     @Enumerated(EnumType.STRING)
-    @Column(name="ROLE_NAME")
+    @Column(name="ROLE_NAME", length = 20)
     private ERolesBD roleName;
 
     public RoleBD(ERolesBD roleName) {

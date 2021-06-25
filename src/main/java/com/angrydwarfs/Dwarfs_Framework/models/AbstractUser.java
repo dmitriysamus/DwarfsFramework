@@ -2,9 +2,7 @@ package com.angrydwarfs.Dwarfs_Framework.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -15,6 +13,9 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @Getter
 @Setter
+@NoArgsConstructor
+@ToString(of = {"id", "username", "password", "userEmail"})
+@EqualsAndHashCode(of = {"id"})
 public class AbstractUser implements Serializable {
 
     @Id
@@ -41,5 +42,11 @@ public class AbstractUser implements Serializable {
     @Column(name="USER_LAST_VISITED_DATE")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastVisitedDate;
+
+    public AbstractUser (String username, String userEmail, String password) {
+        this.username = username;
+        this.userEmail = userEmail;
+        this.password = password;
+    }
 
 }

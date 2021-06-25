@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Контроллер работы с пользователем.
+ * @version 0.001
+ * @author dmitriysamus
+ */
+
 @RestController
 @RequestMapping("/api/auth/users")
 public class UserController {

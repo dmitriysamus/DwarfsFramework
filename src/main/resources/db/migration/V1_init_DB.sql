@@ -1,0 +1,9 @@
+DELETE FROM roles_app;
+DELETE FROM roles_bd;
+
+
+INSERT INTO roles_app (id, ROLE_NAME) VALUES
+(1, 'COMMON'),(2, 'SILVER'),(3, 'GOLD');
+
+INSERT INTO roles_bd (id, ROLE_NAME) VALUES
+(1, 'ROLE_USER'),(2, 'ROLE_ADMIN'),(3, 'ROLE_MODERATOR');
