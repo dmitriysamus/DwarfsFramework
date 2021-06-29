@@ -24,6 +24,6 @@ public class SignupRequest {
     @Email
     private String userEmail;
 
-    private Set <String> roleBd;
+    private Set <String> roleBD;
 
 }

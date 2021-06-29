@@ -1,7 +1,6 @@
 package com.angrydwarfs.Dwarfs_Framework.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -9,6 +8,7 @@ import javax.persistence.*;
 @Table(name = "roles_app")
 @Getter
 @Setter
+@ToString(of = {"roleName"})
 public class RoleApp extends AbstractRole {
 
     @Enumerated(EnumType.STRING)

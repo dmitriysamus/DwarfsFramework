@@ -10,7 +10,6 @@ import javax.persistence.*;
 @Setter
 @ToString(of = {"roleName"})
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"id"})
 public class RoleBD extends AbstractRole {
 
     @Enumerated(EnumType.STRING)

@@ -62,9 +62,10 @@ class AuthTest {
                 .andExpect(jsonPath("message").value("User registered successfully!"));
 
         User user = userRepository.findByUsername("testMany").get();
-//        Assert.assertTrue(user.getRoleBD().toString().contains(ERolesBD.ROLE_ADMIN.toString()));
-//        Assert.assertTrue(user.getRoleBD().toString().contains(ERolesBD.ROLE_USER.toString()));
-//        Assert.assertTrue(user.getRoleApp().toString().contains(ERolesApp.COMMON.toString()));
+
+        Assert.assertTrue(user.getRoleBD().toString().contains(ERolesBD.ROLE_ADMIN.toString()));
+        Assert.assertTrue(user.getRoleBD().toString().contains(ERolesBD.ROLE_USER.toString()));
+        Assert.assertTrue(user.getRoleApp().toString().contains(ERolesApp.COMMON.toString()));
         Assert.assertTrue(user.getUserEmail().contains("testmany@mod.com"));
 
     }

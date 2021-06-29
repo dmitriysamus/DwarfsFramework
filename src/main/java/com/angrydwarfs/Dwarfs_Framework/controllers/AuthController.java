@@ -1,6 +1,7 @@
 package com.angrydwarfs.Dwarfs_Framework.controllers;
 
 import com.angrydwarfs.Dwarfs_Framework.models.*;
+import com.angrydwarfs.Dwarfs_Framework.payload.request.LoginRequest;
 import com.angrydwarfs.Dwarfs_Framework.payload.request.SignupRequest;
 import com.angrydwarfs.Dwarfs_Framework.payload.response.MessageResponse;
 import com.angrydwarfs.Dwarfs_Framework.repository.RoleAppRepository;
@@ -8,6 +9,7 @@ import com.angrydwarfs.Dwarfs_Framework.repository.RoleBDRepository;
 import com.angrydwarfs.Dwarfs_Framework.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +44,19 @@ public class AuthController {
 
 //    @Autowired
 //    private PasswordEncoder encoder;
+
+    /**
+     * @method registerUser - при http POST запросе по адресу .../api/auth/registration
+     * @param signupRequest - входные данные по текущему аутентифицированному пользователю
+     * возвращает данные
+     * @return {@code ResponseEntity.ok - User registered successfully!} - ок при успешной регистрации.
+     * @return {@code ResponseEntity.badRequest - Error: Role is not found.} - ошибка при указании неправильной роли.
+     * @return {@code ResponseEntity.badRequest - Error: Username is already taken!} - ошибка при дублировании username при регистрации.
+     * @return {@code ResponseEntity.badRequest - Error: Email is already in use!} - ошибка при дублировании email при регистрации.
+     * @see ResponseEntity
+     * @see SignupRequest
+     */
+
     @PostMapping("/registration")
     public ResponseEntity <?> registerUser(@RequestBody SignupRequest signupRequest) {
 
@@ -69,7 +84,7 @@ public class AuthController {
 //                encoder.encode(signupRequest.getPassword())
         );
 
-        Set<String> strRoles = signupRequest.getRoleBd();
+        Set<String> strRoles = signupRequest.getRoleBD();
         Set<RoleBD> rolesBD = new HashSet<>();
 
         if (strRoles == null) {
@@ -105,6 +120,7 @@ public class AuthController {
         rolesApp.add(roleAppRepository.findByRoleName(ERolesApp.COMMON)
                 .orElseThrow(()-> new RuntimeException("Error: Role is not found.")));
 
+        user.setRoleApp(rolesApp);
         user.setCreationDate(LocalDateTime.now());
         user.setLastVisitedDate(null);
 
@@ -113,6 +129,61 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
+
+    /**
+     * @method authenticateUser - при http post запросе по адресу .../api/auth/login
+     * @param loginRequest - запрос на доступ с параметрами user login+password.
+     * возвращает
+     * @return {@code ResponseEntity ответ}
+     * @see LoginRequest
+     */
+
+    @PostMapping("/login")
+    public ResponseEntity <?> authenticateUser (@RequestBody LoginRequest loginRequest) {
+
+        Jw
+
+
+
+        return ResponseEntity.ok(new MessageResponse("User logged"));
+
+    }
+
+
+
+
+
+//    @PostMapping("/login")
+//    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+//        JwtResponse jwtResponse = tokenUtils.makeAuth(loginRequest.getUserName(),  loginRequest.getPassword());
+//        tokenUtils.makeToken(loginRequest.getUserName(), jwtResponse.getToken());
+//        User user = userRepository.findByUserName(loginRequest.getUserName()).get();
+//        user.setLastVisitedDate(LocalDateTime.now());
+//        userRepository.save(user);
+//        return ResponseEntity.ok(jwtResponse);
+//    }
+//
+//    /**
+//     * @method logoutUser - при http post запросе по адресу .../api/auth/logout
+//     * @param request - запрос на выход с параметрами user login+password + токен jwt.
+//     * возвращает
+//     * @return {@code ResponseEntity ответ}
+//     * @see LoginRequest
+//     */
+//    @GetMapping("/logout")
+//    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_USER')")
+//    public ResponseEntity<?> logoutUser(HttpServletRequest request) {
+//        String headerAuth = request.getHeader("Authorization");
+//        String jwt = headerAuth.substring(7, headerAuth.length());
+//
+//        Token unActiveToken = tokenRepository.findByToken(jwt);
+//        unActiveToken.setActive(false);
+//        tokenRepository.save(unActiveToken);
+//
+//        return ResponseEntity
+//                .badRequest()
+//                .body(new MessageResponse("You are logout."));
+//    }
 
 
 }
